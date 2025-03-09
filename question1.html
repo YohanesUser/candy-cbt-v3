@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJOTAMANSARI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/webp" href="d723afa8-87c7-4344-8064-11f4e3ab5480.webp">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://patalan.bantulkab.go.id/assets/files/artikel/sedang_1554438091Logo%20Kabupaten%20Bantul.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h2 {
+    font-size: 1.2em; /* Membuat ukuran font lebih besar */
+    color: #000000; /* Warna teks yang kontras dan mudah dibaca */
+    font-weight: bolder; /* Menebalkan teks */
+    margin-bottom: 20px; /* Memberikan jarak bawah agar tidak terlalu rapat dengan konten lainnya */
+    text-align: center; /* Menyelaraskan teks di tengah */
+   
+    
+}
+
+
+        .question-image {
+            max-width: 100%;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Gaya untuk tombol pilihan soal */
+        li {
+    margin: 10px 0;
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 10px;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    background: #f8f9fa; /* Warna latar belakang default */
+    border: 2px solid #fcfeff; /* Warna border default */
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #000000; /* Warna teks default */
+    display: block; /* Pastikan li memenuhi lebar penuh */
+    width: 100%; /* Membuat li lebar penuh */
+    box-sizing: border-box; /* Memastikan padding dan border dihitung dalam lebar elemen */
+}
+
+li:hover {
+    background: #1d8ecf; /* Warna latar saat hover */
+    color: #000000; /* Warna teks saat hover */
+    transform: scale(1.05); /* Efek memperbesar saat hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+}
+
+li.selected {
+    background: #1d8ecf; /* Warna latar untuk opsi yang dipilih */
+    color: #000000; /* Warna teks untuk opsi yang dipilih */
+    border-color: #1d8ecf; /* Warna border untuk opsi yang dipilih */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+}
+
+/* Gaya gambar dalam opsi */
+.option-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto; /* Menyelaraskan gambar di tengah */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Efek bayangan gambar */
+}
+
+
+
+        button {
+            background: #1d8ecf;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin: 20px 5px;
+        }
+
+        button:hover {
+            background: #218838;
+            transform: scale(1);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .result {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #1d8ecf;
+        }
+
+        .question-list {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .question-list ul {
+            padding-left: 0;
+        }
+
+        .question-list li {
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        /* Zoom class for the image */
+        .zoomed {
+            transform: scale(2);
+        }
+        .option-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0; /* Memberikan jarak antara gambar dan teks */
+}
+
+.text-size-controls {
+    position: relative;
+    display: inline-block;
+    margin-top: 0px; /* Mengurangi jarak atas */
+    margin-bottom: 0px; /* Mengurangi jarak bawah */
+    margin-left: auto; /* Menempatkan elemen di sisi kanan */
+}
+
+#text-size-toggle {
+    background-color: #1d8ecf;
+    color: #fff;
+    border: none;
+    padding: 4px 8px; /* Mengurangi padding tombol untuk jarak lebih dekat */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em; /* Mengurangi ukuran font pada tombol */
+    transition: background-color 0.3s ease;
+}
+
+#text-size-toggle {
+    background-color: #1d8ecf;
+    color: #fff;
+    border: none;
+    padding: 10px 20px; /* Menyesuaikan padding sesuai permintaan */
+    border-radius: 5px; /* Membuat sudut tombol melengkung */
+    font-size: 1.1em; /* Ukuran font tombol sesuai dengan permintaan */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 20px 5px; /* Menambahkan margin untuk jarak antar elemen */
+}
+
+#text-size-toggle:hover {
+    background-color: #218838; /* Mengubah warna tombol saat hover */
+    transform: scale(1.05); /* Efek pembesaran saat hover */
+}
+
+#text-size-toggle:active {
+    transform: scale(0.95); /* Efek pengecilan tombol saat aktif */
+}
+
+
+#text-size-toggle:hover {
+    background-color: #082346;
+}
+
+#text-size-options {
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top: 30px; /* Menempatkan pilihan di bawah tombol */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1;
+}
+
+#text-size-options li {
+    padding: 4px 8px; /* Mengurangi padding pada menu untuk jarak lebih dekat */
+    cursor: pointer;
+    background-color: #f9f9f9;
+    font-size: 0.9em; /* Mengurangi ukuran font pada menu */
+}
+
+#text-size-options li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Mengatur scrollbar untuk seluruh halaman */
+::-webkit-scrollbar {
+    width: 20px;  /* Lebar scrollbar yang lebih besar */
+    height: 20px; /* Tinggi scrollbar horizontal */
+}
+
+/* Gaya untuk track scrollbar dengan background transparan */
+::-webkit-scrollbar-track {
+    background: transparent;  /* Background transparan */
+    border-radius: 10px;       /* Sudut melengkung pada track */
+}
+
+/* Gaya untuk thumb scrollbar (bagian yang bergerak) */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #FF6F61, #FF9A8B, #F4A300);  /* Warna cerah seperti permen */
+    border-radius: 10px;         /* Sudut melengkung pada thumb */
+    border: 4px solid transparent;  /* Jarak antara thumb dan track */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;  /* Transisi efek */
+}
+
+/* Efek saat hover pada thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #FFB6C1, #FFD700, #F1C40F);  /* Perubahan warna saat hover */
+    transform: scale(1.2);       /* Membesarkan thumb */
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);  /* Bayangan yang cerah */
+}
+
+/* Efek klik pada thumb */
+::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(45deg, #6A5ACD, #FF6347, #32CD32);   /* Warna berubah saat klik */
+    transform: scale(1.1);        /* Sedikit memperkecil saat klik */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);  /* Bayangan dalam saat klik */
+}
+
+/* Menambahkan gaya untuk scrollbar di Firefox */
+* {
+    scrollbar-width: thin;            /* Menentukan lebar scrollbar */
+    scrollbar-color: #FF6F61 transparent;  /* Menentukan warna thumb dan track */
+}
+
+/* Efek animasi perubahan warna RGB setiap 3 detik */
+@keyframes candyColorChange {
+    0% { background-color: #FF6F61; } /* Warna awal merah cerah */
+    25% { background-color: #FF9A8B; } /* Warna pink cerah */
+    50% { background-color: #F4A300; } /* Warna kuning cerah */
+    75% { background-color: #FFB6C1; } /* Warna peach lembut */
+    100% { background-color: #FFD700; } /* Warna emas */
+}
+
+/* Menambahkan animasi ke thumb untuk perubahan warna */
+::-webkit-scrollbar-thumb {
+    animation: candyColorChange 3s infinite;  /* Warna thumb berubah setiap 3 detik */
+}
+
+/* Scrollbar horizontal (untuk konten yang dapat digulir secara horizontal) */
+::-webkit-scrollbar-horizontal {
+    height: 20px;  /* Lebar scrollbar horizontal lebih besar */
+}
+
+/* Penyesuaian di perangkat mobile */
+@media (max-width: 600px) {
+    ::-webkit-scrollbar {
+        width: 30px;  /* Lebar scrollbar lebih besar di layar kecil */
+        height: 30px; /* Lebar scrollbar horizontal lebih besar */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #FF6F61, #FF9A8B, #F4A300);  /* Warna cerah seperti permen */
+        border-radius: 15px;  /* Membuat thumb lebih besar */
+    }
+
+    /* Scrollbar lebih besar saat hover */
+    ::-webkit-scrollbar-thumb:hover {
+        transform: scale(1.3);  /* Membesarkan lebih banyak */
+    }
+}
+
+#next {
+    position: fixed;
+    bottom: 20px;  /* Jarak dari bawah halaman */
+    padding: 10px 20px;
+    background-color: #0022e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    display: block; /* Pastikan tombol tampil di semua perangkat */
+}
+
+/* Tombol submit */
+#submit {
+    position: fixed;
+    top: 50%;  /* Menempatkan tombol di tengah vertikal */
+    left: 50%;  /* Menempatkan tombol di tengah horizontal */
+    transform: translate(-50%, -50%);  /* Menggeser tombol kembali untuk menyeimbangkan lebar dan tinggi tombol */
+    padding: 10px 20px;
+    background-color: #f80000;
+    color: white;
+    border: firebrick;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1000;
+    display: block; /* Pastikan tombol tampil di semua perangkat */
+}
+
+/* Responsif untuk layar lebih besar (PC) */
+@media (min-width: 992px) {
+    #submit {
+        font-size: 24px;  /* Mengurangi ukuran font pada PC */
+        padding: 10px 15px;  /* Mengurangi padding untuk menyesuaikan ukuran tombol */
+    }
+}
+
+/* Responsif untuk layar lebih kecil (mobile) */
+@media (max-width: 991px) {
+    #submit {
+        font-size: 20px;  /* Menyesuaikan ukuran font untuk perangkat lebih kecil */
+        padding: 8px 16px;  /* Mengurangi padding pada perangkat kecil */
+    }
+}
+
+
+
+#back{
+    position: fixed;
+    bottom: 20px;  /* Jarak dari bawah halaman */
+    padding: 10px 20px;
+    background-color: #00ff2a;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    display: block; /* Pastikan tombol tampil di semua perangkat */
+}
+
+#next {
+    right: 20px;  /* Jarak dari kanan halaman */
+}
+
+#submit {
+    right: 50px
+}
+
+#back {
+    left: 20px;   /* Jarak dari kiri halaman */
+}
+
+@media (min-width: 992px) {
+    #next, #back {
+        bottom: calc(20px + 50px); /* Pastikan tombol berada di atas footer */
+    }
+}
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header">
+            <span id="time">30:00</span>
+            <div id="question-number">Nomor <span id="current-question">1</span></div>
+            <!-- Tombol untuk mengubah ukuran teks -->
+
+
+        </div>
+        
+       
+        <h2 id="question"></h2>
+        
+        <img id="question-image" class="question-image" src="" alt="" style="display: none;">
+        <ul id="options"></ul>
+        <div class="navigation">
+            <button id="back">(<)</button>
+            <button onclick="enterFullscreen()" id="next">(>)</button>
+            <button id="submit" style="display: none;">Kirim (lihat nilai)</button>
+            <div class="text-size-controls">
+                <button id="text-size-toggle">
+                    Ukuran Teks
+                </button>
+                <ul id="text-size-options" style="display: none;">
+                    <li id="increase-text-size">Perbesar (+)</li>
+                    <li id="decrease-text-size">Perkecil (-)</li>
+                </ul>
+            </div>
+
+            <button id="view-questions">Daftar Soal</button>
+        </div>
+        
+        
+        <div class="result" id="result" style="display: none;"></div>
+        <div class="question-list" id="question-list">
+            <h3>Daftar Soal</h3>
+            <ul></ul>
+            <button id="close-list">Tutup</button>
+        </div>
+        <!-- Tombol untuk memperbesar dan memperkecil teks -->
+
+    </div>
+    <footer style="background-color: #333; color: #fff; padding: 20px 0; text-align: center;">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+              <!-- Informasi Perusahaan -->
+              <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+                  <h4 style="margin: 0 0 10px;">Tentang Kami</h4>
+                  <p style="margin: 0;">Kami menyediakan layanan CBT terbaik untuk kebutuhan belajar.</p>
+              </div>
+  
+              <!-- Media Sosial -->
+              <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+                <h4 style="margin: 0 0 10px;">ikuti Prompt Engineer</h4>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.facebook.com/profile.php?id=100088714771697" target="_blank" style="color: #fff; font-size: 20px; text-decoration: none;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" width="24" height="24">
+                    </a>
+                    <a href="https://www.github.com/YohanesUser" target="_blank" style="color: #fff; font-size: 20px; text-decoration: none;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" width="24" height="24">
+                    </a>
+                    <a href="https://www.instagram.com/yohanes_af_sr" target="_blank" style="color: #fff; font-size: 20px; text-decoration: none;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="24" height="24">
+                    </a>
+                </div>
+            </div>
+          </div>
+          <div style="margin-top: 20px;">
+              <img src="https://github.com/YohanesUser/galeri/blob/main/LOGO_TIKUS_PRODUCTION_logo_atas-removebg-preview.png?raw=true" alt="Tikus Production" width="150">
+          </div>
+          <br>
+          <br>
+          <br>
+          <script type="text/javascript" src="https://www.free-counters.org/count/hfpu"></script><br>
+          <a href='https://www.versicherungen.at/cyber-versicherung/'>Cyber-Angriff Versicherung</a> <script type='text/javascript' src='https://whomania.com/ctr?id=3c8e1c47418ec07fcf11507b77d9e70793dee02f'></script>
+  
+          <!-- Hak Cipta -->
+          <div style="margin-top: 20px; border-top: 1px solid #444; padding-top: 10px; font-size: 14px;">
+              <p style="margin: 0;">&copy; 2025 CBT Tikus Production. Semua hak dilindungi.</p>
+              <p>Versi 3.0</p>
+          </div>
+  
+          <!-- Logo Tikus Production -->
+         
+      </div>
+  </footer>
+    
+    <style>
+      /* Reset margin dan padding */
+html, body {
+margin: 0;
+padding: 0;
+height: 100%; /* Memastikan tinggi penuh */
+}
+
+body {
+display: flex;
+flex-direction: column;
+min-height: 100vh; /* Tinggi body mencakup seluruh viewport */
+}
+
+footer {
+background-color: #333;
+color: #fff;
+text-align: center;
+padding: 20px 0;
+font-size: 16px; /* Pastikan footer selalu di bawah */
+}
+
+/* Menambahkan jarak yang cukup jauh antara footer dan elemen di atasnya */
+.content {
+margin-bottom: 50px; /* Menambah jarak antara konten dan footer */
+}
+
+@media (min-width: 992px) {
+footer {
+  padding: 10px 0;
+  font-size: 14px;
+  margin-top: 40px;
+}
+footer h4 {
+  font-size: 16px;
+}
+footer p {
+  font-size: 12px;
+}
+}
+
+
+
+
+      </style>
+
+    <script>
+        const questions =[
+  {
+    "question": "Apa nama pantai yang terkenal di Bantul, DIY?",
+    "options": [
+      "A. Pantai Parangtritis",
+      "B. Pantai Kuta",
+      "C. Pantai Samas",
+      "D. Pantai Depok"
+    ],
+    "answer": 0,
+    "image": "https://dijogja.co/images/gallery_direktori/dijogja-pantai-parangtritis-menikmati-sunset-di-pantai-eksotis-bantul51.jpeg"
+  },
+  {
+    "question": "Berapa jumlah kerajinan tembikar yang diproduksi di Desa Kasongan, Bantul, yang dikenal dengan nama 'kerajinan'?",
+    "options": [
+      "A. 500 buah",
+      "B. 1000 buah",
+      "C. 1500 buah",
+      "D. 2000 buah"
+    ],
+    "answer": 2,
+    "image": "https://campatour.com/wp-content/uploads/2023/12/5-Daya-Tarik-Desa-Wisata-Gerabah-Kasongan.jpg"
+  },
+  {
+    "question": "Berapa lama waktu yang diperlukan untuk mencapai Pantai Parangtritis dari pusat kota Yogyakarta?",
+    "options": [
+      "A. 30 menit",
+      "B. 1 jam",
+      "C. 2 jam",
+      "D. 3 jam"
+    ],
+    "answer": 1,
+    "image": "https://happytour.id/wp-content/uploads/2018/07/PantaiParangtritis2.jpg"
+  },
+  {
+    "question": "Apa nama tempat wisata alam yang terkenal dengan hutan pinus di Bantul?",
+    "options": [
+      "A. Hutan Pinus Imogiri",
+      "B. Hutan Pinus Mangunan",
+      "C. Hutan Pinus Kaliurang",
+      "D. Hutan Pinus Tegalrejo"
+    ],
+    "answer": 1,
+    "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLP35Iv_xQvF_U775DW1yNleG2c3gGhkiLABPdEYPilNYujP3dquc5v7efLoDof1iBsFCbJPmqtpXW0az_zRqiauqJfTcpLqPp4_Em7MM8SH89HZ21btV5T7uh3vUHwIUTs4I_cR3Y_LGmXbUWnIasTom6Y7R6TAPjK0kmYMoaaTT9T1OSMYSNKmye/s1776/2022_1122_12133400.jpg"
+  },
+  {
+    "question": "Apa makanan khas yang paling terkenal dari Kabupaten Bantul?",
+    "options": [
+      "A. Gudeg",
+      "B. Sate Klathak",
+      "C. Nasi Goreng",
+      "D. Ayam Penyet"
+    ],
+    "answer": 1,
+    "image": "https://i2.wp.com/www.njogja.co.id/wp-content/uploads/2014/07/wisata-murah-jogha-klatak.jpg?fit=1600%2C1067&ssl=1"
+  },
+  {
+    "question": "Apa nama pantai yang terkenal di BANTUL SELATAN (BAGIAN TENGAH), DIY?",
+    "options": [
+      "A. Pantai Parangtritis",
+      "B. Pantai Samas",
+      "C. Pantai Depok",
+      "D. Pantai Glagah"
+    ],
+    "answer": 1,
+    "image": "https://th.bing.com/th/id/OIP.LjRyaLLS8jmRu53lTPsW-AAAAA?w=474&h=355&rs=1&pid=ImgDetMain"
+  },
+  {
+    "question": "Apa nama objek wisata di Bantul yang terkenal dengan spot foto di tebing dan pemandangan sungai oya?",
+    "options": [
+      "A. Taman Sari",
+      "B. Bukit Panguk Kediwung",
+      "C. Goa Selarong",
+      "D. Candi Prambanan"
+    ],
+    "answer": 1,
+    "image": "https://th.bing.com/th/id/OIP.bVqyaWPZwTGWRRDwX-PXxwHaE-?rs=1&pid=ImgDetMain"
+  },
+  {
+    "question": "Berapa banyak orang yang terlihat dalam gambar ini?",
+    "options": [
+      "A. 3",
+      "B. 5",
+      "C. 7",
+      "D. 6"
+    ],
+    "answer": 3,
+    "image": "https://img.inews.co.id/media/600/files/inews_new/2022/12/25/candi_ganjuran.jpg"
+  },
+  {
+    "question": "Apa nama pasar yang terkenal di Bantul Dan hanya buka di pasaran Pahing",
+    "options": [
+      "A. Pasar Gumulan",
+      "B. Pasar Bantul",
+      "C. Pasar Turi",
+      "D. Pasar Beringharjo"
+    ],
+    "answer": 2,
+    "image": "https://i.ytimg.com/vi/69z44bLLcfE/maxresdefault.jpgg"
+  },
+  {
+    "question": "Apa Kapanewon yang paling terkenal dari Candi  Ganjuran Kabupaten Bantul?",
+    "options": [
+      "A. Kapanewon Bambanglipuro",
+      "B. Kapanewon Banguntapan",
+      "C. kapanewon Kretek",
+      "D. kapanewon Piyungan"
+    ],
+    "answer": 0,
+    "image": "https://asset.kompas.com/crops/lVu6_8vxIpv2tmZnbaJQeNOiBfc=/0x0:0x0/780x390/filters:watermark(data/photo/2020/03/10/5e6775cf5d848.png,0,-0,1)/data/photo/2021/03/28/60606082e414b.jpg"
+  },
+  {
+    "question": "Di Bantul, terdapat sebuah Landasan Pacu pesawat milik TNI AU Adjisucipto (dimanakah itu?)",
+    "options": [
+      "A. Pantai Glagah",
+      "B. Pantai Depok",
+      "C. Pantai Parangtritis",
+      "D. Pantai Samas"
+    ],
+    "answer": 1,
+    "image": "https://asset-2.tstatic.net/jogja/foto/bank/images/Jogja-Air-Show-Kembali-Digelar-Setelah-Absen-Dua-Tahun-karena-Pandemi.jpg"
+  },
+  {
+    "question": "Apa nama desa di Bantul yang terkenal dengan kerajinan gerabah?",
+    "options": [
+      "A. Desa Kasongan",
+      "B. Desa Imogiri",
+      "C. Desa Parangtritis",
+      "D. Desa Gamping"
+    ],
+    "answer": 0,
+    "image": "https://example.com/images/kasongan.jpg"
+  },
+  {
+    "question": "Apa nama air terjun yang terkenal di Bantul?",
+    "options": [
+      "A. Air Terjun Tumpak Sewa",
+      "B. Air Terjun Sikunir",
+      "C. Air Terjun Penawangan Srunggo",
+      "D. Air Terjun Sumber Pitu"
+    ],
+    "answer": 2,
+    "image": "https://loka-pedia.com/storage/2023/10/AF1QipPsfXiEe_gF3cGsE-PUjAM9aeLgK9qOaq6rF20fw800-h600-k-no.jpeg"
+  },
+  {
+    "question": "Apa nama hutan pinus yang terkenal di Bantul, sering digunakan untuk berfoto?",
+    "options": [
+      "A. Hutan Pinus Imogiri",
+      "B. Hutan Pinus Kaliurang",
+      "C. Hutan Pinus Mangunan",
+      "D. Hutan Pinus Merapi"
+    ],
+    "answer": 2,
+    "image": "https://example.com/images/hutan_pinus_mangunan.jpg"
+  },
+  {
+    "question": "Kabupaten Bantul memiliki objek wisata yang terkenal dengan pemandangan matahari terbenam di pantai. Apa nama pantai tersebut?",
+    "options": [
+      "A. Pantai Depok",
+      "B. Pantai Samas",
+      "C. Pantai Parangtritis",
+      "D. Pantai Glagah"
+    ],
+    "answer": 2,
+    "image": "https://example.com/images/pantai_parangtritis_sunset.jpg"
+  },
+  {
+    "question": "Gambar manakah yang menunjukkan Gambar Bupati yang menjabat & terpilih di pilkada 2024?",
+    "options": [
+      {
+        "label": "A",
+        "image": "https://th.bing.com/th/id/OIP.O5HVF9lEKH28ybe7NEyjUwHaE8?rs=1&pid=ImgDetMain"
+      },
+      {
+        "label": "B",
+        "image": "https://asset-2.tstatic.net/jogja/foto/bank/images/Ketua-DPC-PKB-Bantul-Abdul-Halim-Muslih-sedang-menanggapi-persoalan-Pilkada-2024-1642024.jpg"
+      },
+      {
+        "label": "C",
+        "image": "https://www.gerejaganjuran.org/assets/img/article/025ee4b473addd4a53bcded653be06cc.JPG"
+      },
+      {
+        "label": "D",
+        "image": "https://th.bing.com/th/id/OIP.X6alzBSodO1ObiqrKGtHmQAAAA?rs=1&pid=ImgDetMain"
+      }
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Gambar manakah yang menunjukkan simbol Kabupaten Bantul?",
+    "options": [
+      {
+        "label": "A",
+        "image": "https://logodix.com/logo/2108823.png"
+      },
+      {
+        "label": "B",
+        "image": "https://th.bing.com/th/id/OIP.xz3ilFPVcK1JN6aoH3HKqgHaFQ?rs=1&pid=ImgDetMain"
+      },
+      {
+        "label": "C",
+        "image": "https://iconlogovector.com/uploads/images/2023/06/md-9bafdaeafd440e8d523d67925d7cedf266.jpg"
+      },
+      {
+        "label": "D",
+        "image": "https://e7.pngegg.com/pngimages/691/734/png-clipart-logo-lambang-daerah-istimewa-yogyakarta-cdr-pemerintah-kota-yogyakarta-others-miscellaneous-emblem.png"
+      }
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Gambar manakah yang menunjukkan Bupati Bantul 2006 (saat gempa)?",
+    "options": [
+      {
+        "label": "A",
+        "image": "https://example.com/images/pinus1.jpg"
+      },
+      {
+        "label": "B",
+        "image": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,q_auto:best,w_640/v1634025439/01hg84qzj4f7n9z93k060zr1wm.jpg"
+      },
+      {
+        "label": "C",
+        "image": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p2/124/2023/10/06/06idham-3811136786.jpg"
+      },
+      {
+        "label": "D",
+        "image": "https://th.bing.com/th/id/OIP.0vLOp0MmLrFUxaRVM4URfQHaEP?rs=1&pid=ImgDetMain"
+      }
+    ],
+    "answer": 2
+  },
+  {
+    "question": "Gambar manakah yang menunjukkan pemandangan Pantai Parangtritis di Bantul?",
+    "options": [
+      {
+        "label": "A",
+        "image": "https://th.bing.com/th/id/OIP.Vsj4BMVUJFxA0twEp5eFGwHaE0?rs=1&pid=ImgDetMain"
+      },
+      {
+        "label": "B",
+        "image": "https://i1.wp.com/liburmulu.com/wp-content/uploads/2016/01/Pulau-Karang-di-Pantai-Kukup.jpg"
+      },
+      {
+        "label": "C",
+        "image": "https://th.bing.com/th/id/OIP.OiwFDR88tnNt_QjIaeZ2vwHaJQ?rs=1&pid=ImgDetMain"
+      },
+      {
+        "label": "D",
+        "image": "https://th.bing.com/th/id/OIP.N82T7bmRZ6YVX7EswVt3dgHaE8?rs=1&pid=ImgDetMain"
+      }
+    ],
+    "answer": 3
+  },
+  {
+    "question": "Gambar manakah yang menunjukkan hasil kerajinan Sepatu & Tas Kulit Manding di Bantul?",
+    "options": [
+      {
+        "label": "A",
+        "image": "https://www.jogjaspace.com/wp-content/uploads/2017/08/kerajinan-tanah-liat-kasongan.jpg"
+      },
+      {
+        "label": "B",
+        "image": "https://img.kontenjatim.id/articles/archive_20230912/sound-horeg-20230912-160244.jpg"
+      },
+      {
+        "label": "C",
+        "image": "https://kissparry.com/wp-content/uploads/2017/04/manding-edward.jpg"
+      },
+      {
+        "label": "D",
+        "image": "https://th.bing.com/th/id/OIP.iwWv4ICv6-fz6kqJr63tvAHaHa?rs=1&pid=ImgDetMain"
+      }
+    ],
+    "answer": 2
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+
+// Timer untuk kuis
+let timeRemaining = 15 * 60;
+let timerInterval = setInterval(() => {
+    timeRemaining -= 1;
+    document.getElementById('time').textContent = formatTime(timeRemaining);
+    if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+        alert('Waktu habis! Soal akan disubmit.');
+        submitQuiz();
+    }
+}, 1000);
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secondsRemaining = seconds % 60;
+    return `${minutes}:${secondsRemaining.toString().padStart(2, '0')}`;
+}
+
+// Inisialisasi variabel
+let currentPage = 1;
+const selectedAnswers = new Array(questions.length).fill(null);
+let answeredQuestions = [];
+
+// Muat soal saat ini
+function loadQuestion() {
+    const questionData = questions[currentPage - 1];
+    document.getElementById('question').textContent = questionData.question;
+
+    // Tampilkan gambar soal jika ada
+    const questionImage = document.getElementById('question-image');
+    if (questionData.image) {
+        questionImage.src = questionData.image;
+        questionImage.style.display = 'block';
+    } else {
+        questionImage.style.display = 'none';
+    }
+
+    // Tampilkan pilihan jawaban
+    const optionsElement = document.getElementById('options');
+    optionsElement.innerHTML = '';
+
+    questionData.options.forEach((option, index) => {
+        const li = document.createElement('li');
+        
+        if (option.image) {
+            const img = document.createElement('img');
+            img.src = option.image;
+            img.alt = option.alt || "Jawaban";
+            img.classList.add('option-image');
+            li.appendChild(img);
+        } else {
+            li.textContent = option.text || option;
+        }
+        
+        li.addEventListener('click', () => selectOption(index));
+        
+        if (selectedAnswers[currentPage - 1] === index) {
+            li.classList.add('selected');
+        }
+        
+        optionsElement.appendChild(li);
+    });
+
+    document.getElementById('next').style.display = (currentPage === questions.length) ? 'none' : 'inline-block';
+    document.getElementById('submit').style.display = (currentPage === questions.length) ? 'inline-block' : 'none';
+}
+
+// Pilih jawaban
+function selectOption(index) {
+    selectedAnswers[currentPage - 1] = index;
+
+    if (!answeredQuestions.includes(currentPage - 1)) {
+        answeredQuestions.push(currentPage - 1);
+    }
+
+    loadQuestion();
+}
+
+// Navigasi soal
+document.getElementById('next').addEventListener('click', () => {
+    if (currentPage < questions.length) {
+        currentPage++;
+        document.getElementById('current-question').textContent = currentPage;
+        loadQuestion();
+    }
+});
+
+document.getElementById('back').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        document.getElementById('current-question').textContent = currentPage;
+        loadQuestion();
+    }
+});
+
+// Submit kuis
+function submitQuiz() {
+    clearInterval(timerInterval);
+
+    const score = selectedAnswers.reduce((acc, answer, index) => {
+        return answer === questions[index].answer ? acc + 1 : acc;
+    }, 0);
+    
+    const totalQuestions = questions.length;
+    const percentage = (score / totalQuestions) * 100;
+
+    document.getElementById('result').innerHTML = `Skor Anda, Benar: ${score} dari ${totalQuestions} (Nilai: ${percentage.toFixed(2)}%)`;
+    document.getElementById('result').style.display = 'block';
+    document.querySelector('.navigation').style.display = 'none';
+
+    setTimeout(() => {
+        const phoneNumber = "6289530067456";
+        const message = `Nilai PROJOTAMANSARI: (Masukkan Nama Anda) adalah: ${score} dari ${totalQuestions} (${percentage.toFixed(2)}%)`;
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    }, 3000);
+}
+
+document.getElementById('submit').addEventListener('click', submitQuiz);
+
+// Tampilkan daftar soal
+document.getElementById('view-questions').addEventListener('click', () => {
+    const questionListElement = document.getElementById('question-list');
+    const questionListUl = questionListElement.querySelector('ul');
+    questionListUl.innerHTML = '';
+
+    questions.forEach((_, index) => {
+        const li = document.createElement('li');
+        li.textContent = `Soal ${index + 1}`;
+        
+        if (answeredQuestions.includes(index)) {
+            li.textContent += ' - Sudah Dijawab';
+        }
+        
+        li.addEventListener('click', () => {
+            currentPage = index + 1;
+            document.getElementById('current-question').textContent = currentPage;
+            loadQuestion();
+            questionListElement.style.display = 'none';
+        });
+        
+        questionListUl.appendChild(li);
+    });
+
+    questionListElement.style.display = 'block';
+});
+
+document.getElementById('close-list').addEventListener('click', () => {
+    document.getElementById('question-list').style.display = 'none';
+});
+
+let pressTimer;
+const questionImage = document.getElementById('question-image');
+
+// Function to add zoom on mouse and touch
+function zoomIn() {
+    questionImage.classList.add('zoomed');
+}
+
+// Function to remove zoom on mouse and touch
+function zoomOut() {
+    questionImage.classList.remove('zoomed');
+}
+
+// For mouse events
+questionImage.addEventListener('mousedown', function() {
+    pressTimer = setTimeout(zoomIn, 0.00); // Start zoom after 500ms hold
+});
+
+questionImage.addEventListener('mouseup', function() {
+    clearTimeout(pressTimer); // Clear the zoom-in timer
+    zoomOut();
+});
+
+questionImage.addEventListener('mouseleave', function() {
+    clearTimeout(pressTimer); // Clear the zoom-in timer when mouse leaves
+    zoomOut();
+});
+
+// For touch events (mobile compatibility)
+questionImage.addEventListener('touchstart', function() {
+    pressTimer = setTimeout(zoomIn, 0.00); // Start zoom after 500ms touch hold
+});
+
+questionImage.addEventListener('touchend', function() {
+    clearTimeout(pressTimer); // Clear the zoom-in timer
+    zoomOut();
+});
+
+questionImage.addEventListener('touchcancel', function() {
+    clearTimeout(pressTimer); // Clear the zoom-in timer if touch is canceled
+    zoomOut();
+});
+
+// Inisialisasi pertama
+loadQuestion();
+
+// Menangani dropdown untuk mengubah ukuran teks
+const textSizeToggleButton = document.getElementById('text-size-toggle');
+const textSizeOptions = document.getElementById('text-size-options');
+const increaseTextSizeOption = document.getElementById('increase-text-size');
+const decreaseTextSizeOption = document.getElementById('decrease-text-size');
+const questionTitle = document.getElementById('question');
+const questionOptions = document.getElementById('options');
+
+// Ukuran font awal
+let titleFontSize = 1.2; // Ukuran font awal untuk h2 (em)
+let optionFontSize = 0.8; // Ukuran font awal untuk li (em)
+
+// Toggle tampilkan/ sembunyikan pilihan ukuran teks
+textSizeToggleButton.addEventListener('click', () => {
+    const isVisible = textSizeOptions.style.display === 'block';
+    textSizeOptions.style.display = isVisible ? 'none' : 'block';
+});
+
+// Fungsi untuk memperbesar teks
+increaseTextSizeOption.addEventListener('click', () => {
+    titleFontSize += 0.1; // Menambah ukuran font h2
+    optionFontSize += 0.1; // Menambah ukuran font li
+    updateTextSize(); // Memperbarui ukuran teks
+    textSizeOptions.style.display = 'none'; // Menutup dropdown setelah memilih
+});
+
+// Fungsi untuk memperkecil teks
+decreaseTextSizeOption.addEventListener('click', () => {
+    titleFontSize = Math.max(0.5, titleFontSize - 0.1); // Mengurangi ukuran font h2 (dengan batas minimum)
+    optionFontSize = Math.max(0.5, optionFontSize - 0.1); // Mengurangi ukuran font li (dengan batas minimum)
+    updateTextSize(); // Memperbarui ukuran teks
+    textSizeOptions.style.display = 'none'; // Menutup dropdown setelah memilih
+});
+
+// Fungsi untuk memperbarui ukuran teks
+function updateTextSize() {
+    questionTitle.style.fontSize = `${titleFontSize}em`; // Update ukuran teks h2
+    const options = questionOptions.getElementsByTagName('li');
+    for (let option of options) {
+        option.style.fontSize = `${optionFontSize}em`; // Update ukuran teks li
+    }
+}
+// Mencegah pemilihan teks
+document.addEventListener('selectstart', function (e) {
+    e.preventDefault(); // Menonaktifkan pemilihan teks
+});
+
+// Mencegah salin (copy)
+document.addEventListener('copy', function (e) {
+    e.preventDefault(); // Menonaktifkan aksi salin
+});
+
+// Mencegah klik kanan untuk membuka menu konteks
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault(); // Menonaktifkan menu konteks (klik kanan)
+});
+// Mencegah tombol back
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+};
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault(); // Membatalkan event default
+    e.returnValue = ''; // Menampilkan peringatan kepada pengguna
+});
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault(); // Membatalkan event default
+    e.returnValue = 'Anda yakin ingin meninggalkan halaman ini?'; // Pesan peringatan
+});
+function goFullscreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+    }
+}
+
+goFullscreen();
+// Menyimpan data
+function saveData() {
+    const userData = {
+        username: "JohnDoe",
+        progress: 50,
+        timestamp: new Date().toISOString()
+    };
+    localStorage.setItem("userData", JSON.stringify(userData));
+    console.log("Data disimpan");
+}
+
+// Mengambil data
+function loadData() {
+    const savedData = localStorage.getItem("userData");
+    if (savedData) {
+        const userData = JSON.parse(savedData);
+        console.log("Data dimuat:", userData);
+    } else {
+        console.log("Tidak ada data yang disimpan");
+    }
+}
+
+// Menghapus data
+function clearData() {
+    localStorage.removeItem("userData");
+    console.log("Data dihapus");
+}
+
+// Panggil fungsi untuk menyimpan atau memuat data
+saveData(); // Menyimpan data
+loadData(); // Mengambil data
+// Menyimpan data
+function saveSessionData() {
+    const sessionData = {
+        level: 5,
+        score: 1000
+    };
+    sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
+    console.log("Data sesi disimpan");
+}
+
+// Mengambil data sesi
+function loadSessionData() {
+    const savedSessionData = sessionStorage.getItem("sessionData");
+    if (savedSessionData) {
+        const sessionData = JSON.parse(savedSessionData);
+        console.log("Data sesi dimuat:", sessionData);
+    } else {
+        console.log("Tidak ada data sesi yang disimpan");
+    }
+}
+
+// Menghapus data sesi
+function clearSessionData() {
+    sessionStorage.removeItem("sessionData");
+    console.log("Data sesi dihapus");
+}
+
+// Panggil fungsi untuk menyimpan atau memuat data sesi
+saveSessionData(); // Menyimpan data sesi
+loadSessionData(); // Mengambil data sesi
+let db;
+
+const request = indexedDB.open("userDataDB", 1);
+
+request.onsuccess = function(event) {
+    db = event.target.result;
+    console.log("Database dibuka");
+    storeData();
+};
+
+request.onerror = function(event) {
+    console.error("Error membuka database", event.target.error);
+};
+
+request.onupgradeneeded = function(event) {
+    db = event.target.result;
+    const objectStore = db.createObjectStore("users", { keyPath: "id" });
+    objectStore.createIndex("name", "name", { unique: false });
+    console.log("Object store dibuat");
+};
+
+function storeData() {
+    const transaction = db.transaction(["users"], "readwrite");
+    const objectStore = transaction.objectStore("users");
+    const userData = { id: 1, name: "John Doe", progress: 75 };
+    objectStore.add(userData);
+    console.log("Data disimpan dalam IndexedDB");
+}
+
+function getData() {
+    const transaction = db.transaction(["users"]);
+    const objectStore = transaction.objectStore("users");
+    const request = objectStore.get(1);
+    
+    request.onsuccess = function(event) {
+        console.log("Data yang diambil:", event.target.result);
+    };
+
+    request.onerror = function(event) {
+        console.error("Gagal mengambil data", event.target.error);
+    };
+}
+
+function clearData() {
+    const transaction = db.transaction(["users"], "readwrite");
+    const objectStore = transaction.objectStore("users");
+    objectStore.clear();
+    console.log("Data dihapus dari IndexedDB");
+}
+window.addEventListener("beforeunload", function(e) {
+    // Simpan data sebelum keluar
+    localStorage.setItem("userData", JSON.stringify({ username: "JohnDoe", progress: 50 }));
+});
+
+// Fungsi untuk masuk ke mode layar penuh
+function enterFullscreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen(); // Untuk browser desktop
+    } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen(); // Firefox
+    } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(); // Chrome, Safari, dan Opera
+    } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen(); // Internet Explorer/Edge
+    }
+}
+
+// Meminta fullscreen saat pengguna klik (misalnya klik tombol atau area tertentu)
+document.getElementById('fullscreen-btn').addEventListener('click', function() {
+    enterFullscreen();
+});
+
+
+
+
+
+    </script>
+</body>
+</html>
